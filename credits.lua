@@ -60,10 +60,6 @@ function scene:show( event )
         --instructionsButton:addEventListener( "tap", myMenu.showInstructions )
         --creditsButton:addEventListener( "tap", myMenu.showCredits )
 
-
-
-
-
     elseif phase == "did" then
         -- Called when the scene is now on screen
         -- 

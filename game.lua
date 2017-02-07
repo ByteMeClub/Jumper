@@ -23,13 +23,25 @@ local grass4
 local grass5
 local heroObject
 local obstacle = {}
+local scoreText
+local scoreLabel
+local highScoreText
+local highScoreLabel
 
-function nextScene (event)
+
+
+function nextScene (event)    
+    Physics.pause()
+    heroObject:pause()
     native.showAlert('Jumper', 'Are you sure you want to exit the game?', {'Yes', 'Cancel'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
+        else
+            heroObject:play()
+            Physics.start()
         end
     end)
+
 end
 
 
@@ -49,6 +61,10 @@ function rollObstacles(event)
         if obstacle[i].x < 0 then
             score = score + 1
             scoreText.text = score
+            if (score > highScore) then
+                highScore = score
+                highScoreText.text = highScore
+            end
             obstacle[i].x = 850
         else
             if (score >= 5) then
@@ -89,12 +105,20 @@ end
 function scene:create( event )
     local sceneGroup = self.view
 
+    Physics.pause()
+
+    composer.removeScene("mainmenu")
+
     -- Called when the scene's view does not exist
     -- 
     -- INSERT code here to initialize the scene
+
+    score = 0
+
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
 
     -- add static images
+
     background = display.newImage( "Background/City.png", 240, 150)
     background:scale( .35, .35 )
 
@@ -121,7 +145,7 @@ function scene:create( event )
     obstacle[1].x = 250
     obstacle[1].y = 275 
     obstacle[1]:scale(.7, .7)
-    obstacle[1].collType = "Images/asteroid"
+    --obstacle[1].collType = "Images/asteroid"
     obstacle[1].name = "Asteroid 1"
 
     obstacle[2] = display.newImage( "Images/roadSign.png")
@@ -146,7 +170,13 @@ function scene:create( event )
     heroObject:scale(.1, .1)
     heroObject.gravityScale = 2.75
         
+    scoreText = display.newText(score, display.contentCenterX + 50, 90, native.systemFont, 30)
+    scoreLabel = display.newText("Score: ", display.contentCenterX -10 , 90, native.systemFont, 30)
+    highScoreText = display.newText(highScore, display.contentCenterX + 250, 30, native.systemFont, 30)
+    highScoreLabel = display.newText("Highscore: ", display.contentCenterX + 160, 30, native.systemFont, 30)
+
     -- add display components to scene
+    -- IMPORTANT! If you add display components diectly to Physics and do not add them to sceneGroup, then they will not get removedf automatically when scence is hidden/destroyed
     sceneGroup:insert(background)
     sceneGroup:insert(backButton)
     sceneGroup:insert(grass1)
@@ -155,10 +185,19 @@ function scene:create( event )
     sceneGroup:insert(grass4)
     sceneGroup:insert(grass5)
 
+    sceneGroup:insert(heroObject)
+    sceneGroup:insert(obstacle[1])
+    sceneGroup:insert(obstacle[2])
+    sceneGroup:insert(obstacle[3])
+
+    sceneGroup:insert(scoreText)
+    sceneGroup:insert(highScoreText)
+    sceneGroup:insert(scoreLabel)
+    sceneGroup:insert(highScoreLabel)
+
     -- add Listeners
     backButton:addEventListener( "tap", nextScene )
     background:addEventListener("tap", heroJump)
-    --Runtime:addEventListener("enterFrame", rollObstacles)
 
 end
 
@@ -189,6 +228,10 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
 
+        print("STARTING SHOW.did !")
+
+        Physics.start()
+
         Physics.addBody(grass1, "static", {bounce = 0})
         Physics.addBody(grass2, "static", {bounce = 0})
         Physics.addBody(grass3, "static", {bounce = 0})
@@ -202,8 +245,22 @@ function scene:show( event )
         Physics.addBody(obstacle[2], "dynamic", {radius = 20, bounce = 0})
         Physics.addBody(obstacle[3], "dynamic", {radius = 20, bounce = 0})
 
+        Runtime:addEventListener("enterFrame", rollObstacles)
     end 
 end
+
+
+function scene:setIsPaused(isPaused)
+    self.isPaused = isPaused
+    self.cannon.isPaused = self.isPaused -- Pause adding trajectory points
+    if self.isPaused then
+        Physics.pause()
+    else
+        Physics.start()
+    end
+end
+
+
 
 function scene:hide( event )
     local sceneGroup = self.view
@@ -214,21 +271,25 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
-        Physics.stop()
+        -- heroObject:pause()
     elseif phase == "did" then
         -- Called when the scene is now off screen
         -- if nextSceneButton then
         --  nextSceneButton:removeEventListener( "touch", nextSceneButton )
         -- end
+        print("HIDING & DESTROYING THE GAME!")
+
+        composer.removeScene("game")
     end 
 end
 
 
 function scene:destroy( event )
     local sceneGroup = self.view
-
-    print("DESTROYING THE GAME!")
-
+    -- Called prior to the removal of scene's "view" (sceneGroup)
+    -- 
+    -- INSERT code here to cleanup the scene
+    -- e.g. remove display objects, remove touch listeners, save state, etc
     Physics.removeBody(grass1)
     Physics.removeBody(grass2)
     Physics.removeBody(grass3)
@@ -239,15 +300,8 @@ function scene:destroy( event )
     Physics.removeBody(obstacle[2])
     Physics.removeBody(obstacle[3])
 
+    Runtime:removeEventListener("enterFrame", rollObstacles)
     Physics.stop()
-
-    backButton:removeEventListener( "tap", nextScene )
-    background:removeEventListener("tap", heroJump)
-
-    -- Called prior to the removal of scene's "view" (sceneGroup)
-    -- 
-    -- INSERT code here to cleanup the scene
-    -- e.g. remove display objects, remove touch listeners, save state, etc
 end
 
 ---------------------------------------------------------------------------------
