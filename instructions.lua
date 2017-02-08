@@ -14,7 +14,7 @@ local scene = composer.newScene()
 --local nextSceneButton
 
 function nextScene (event)
-    composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )
+    composer.gotoScene( event.target.name , { effect = "slideUp", time = 300 } )
 end
 
 

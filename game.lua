@@ -14,6 +14,8 @@ local scene = composer.newScene()
 local Physics = require("physics")
 Physics.start()
 
+Physics.setGravity( 0, 18)
+
 local background 
 local backButton
 local grass1
@@ -142,20 +144,20 @@ function scene:create( event )
 
    
     obstacle[1] = display.newImage( "Images/roadSign.png")
-    obstacle[1].x = 250
+    obstacle[1].x = 200
     obstacle[1].y = 275 
     obstacle[1]:scale(.7, .7)
     --obstacle[1].collType = "Images/asteroid"
     obstacle[1].name = "Asteroid 1"
 
     obstacle[2] = display.newImage( "Images/roadSign.png")
-    obstacle[2].x = 350
+    obstacle[2].x = 500
     obstacle[2].y = 275
     obstacle[2]:scale(.7, .7)
     obstacle[2].name = "Asteroid 2"
 
     obstacle[3] = display.newImage( "Images/roadSign.png")
-    obstacle[3].x = 450
+    obstacle[3].x = 800
     obstacle[3].y = 275
     obstacle[3]:scale(.7, .7)
     obstacle[3].name = "Asteroid 2"
@@ -168,7 +170,6 @@ function scene:create( event )
     heroObject.x = 50
     heroObject.y = 260  
     heroObject:scale(.1, .1)
-    heroObject.gravityScale = 2.75
         
     scoreText = display.newText(score, display.contentCenterX + 50, 90, native.systemFont, 30)
     scoreLabel = display.newText("Score: ", display.contentCenterX -10 , 90, native.systemFont, 30)
@@ -176,7 +177,7 @@ function scene:create( event )
     highScoreLabel = display.newText("Highscore: ", display.contentCenterX + 160, 30, native.systemFont, 30)
 
     -- add display components to scene
-    -- IMPORTANT! If you add display components diectly to Physics and do not add them to sceneGroup, then they will not get removedf automatically when scence is hidden/destroyed
+    -- IMPORTANT! If you add display components diectly to Physics and do not add them to sceneGroup, then they will not get removed automatically when scence is hidden/destroyed
     sceneGroup:insert(background)
     sceneGroup:insert(backButton)
     sceneGroup:insert(grass1)
@@ -249,16 +250,6 @@ function scene:show( event )
     end 
 end
 
-
-function scene:setIsPaused(isPaused)
-    self.isPaused = isPaused
-    self.cannon.isPaused = self.isPaused -- Pause adding trajectory points
-    if self.isPaused then
-        Physics.pause()
-    else
-        Physics.start()
-    end
-end
 
 
 
