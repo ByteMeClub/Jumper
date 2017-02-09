@@ -229,6 +229,9 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
 
+        gameTheme = audio.loadStream("Music/playTheme2.ogg")
+        playGameTheme = audio.play( gameTheme, { channel=2, loops=-1, fadein=0 } )
+
         print("STARTING SHOW.did !")
 
         Physics.start()
@@ -263,6 +266,8 @@ function scene:hide( event )
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
         -- heroObject:pause()
+
+        audio.stop( 2 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
         -- if nextSceneButton then

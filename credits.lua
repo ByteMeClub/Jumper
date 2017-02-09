@@ -66,19 +66,8 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
         
-        -- we obtain the object by id from the scene's object hierarchy
-        -- nextSceneButton = self:getObjectByName( "GoToScene2Btn" )
-        -- if nextSceneButton then
-        --  -- touch listener for the button
-        --  function nextSceneButton:touch ( event )
-        --      local phase = event.phase
-        --      if "ended" == phase then
-        --          composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
-        --      end
-        --  end
-        --  -- add the touch event listener to the button
-        --  nextSceneButton:addEventListener( "touch", nextSceneButton )
-        -- end
+        creditsTheme = audio.loadStream("Music/creditsTheme.OGG")
+        playCreditsTheme = audio.play( creditsTheme, { channel=4, loops=0, fadein=0 } )
         
     end 
 end
@@ -92,6 +81,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
+        audio.stop( 4 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
         -- if nextSceneButton then

@@ -11,6 +11,7 @@ display.setStatusBar( display.HiddenStatusBar )
 -- global variables to track scores
 score = 0
 highScore = 0
+tempScore = 0
 
 local composer = require( "composer" )
 
@@ -24,7 +25,8 @@ function onCollision( event )
 		if (obj1 == "greenGuy") then
 			if (obj2 == "Asteroid 1" or obj2 == "Asteroid 2" or obj2 == "Asteroid 3") then
 				event.phase = "ended"
-				composer.gotoScene('restart', {time = 500, effect = 'fromTop'})
+				tempScore = score
+				composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
 			elseif (obj2 == "grass1" or obj2 == "grass2" or obj2 == "grass3" or obj2 == "grass4" or obj2 == "grass5") then
 				print("filler")
 			else
@@ -33,7 +35,8 @@ function onCollision( event )
 		elseif  (obj2 == "greenGuy") then
 			if (obj1 == "Asteroid 1" or obj1 == "Asteroid 2" or obj1 == "Asteroid 3") then
 				event.phase = "ended"
-				composer.gotoScene('restart', {time = 500, effect = 'fromTop'})
+				tempScore = score
+				composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
 			elseif (obj1 == "grass1" or obj1 == "grass2" or obj1 == "grass3" or obj1 == "grass4" or obj1 == "grass5") then
 				print("filler")
 			else

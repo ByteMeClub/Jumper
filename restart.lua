@@ -25,8 +25,16 @@ function scene:create( event )
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
-    local background = display.newImage("Background/instructionsBackground.jpg")
+    local background = display.newImage("menuBackground.png")
+    background.x = display.contentCenterX
+    background.y = display.contentCenterY
+    background:scale(1.2, 1.2)
     sceneGroup:insert(background)
+
+    newScoreLabel = display.newText("Score That Round: ", display.contentCenterX -10 , 120, native.systemFont, 30)
+    newScoreText = display.newText(highScore, display.contentCenterX -10 , 160, native.systemFont, 40)
+    newScoreLabel:setTextColor(500,300,0)
+    newScoreText:setTextColor(255,200,0)
 
     local backButton = display.newImage("Buttons/backButton.png")
     backButton.name = "game"
@@ -34,6 +42,9 @@ function scene:create( event )
     backButton.x = display.contentCenterX - 230
     backButton.y = display.contentCenterY - 100
     sceneGroup:insert(backButton)
+
+    sceneGroup:insert(newScoreLabel)
+    sceneGroup:insert(newScoreText)
 
     backButton:addEventListener( "tap", nextScene )
 
@@ -72,20 +83,10 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
         
-        -- we obtain the object by id from the scene's object hierarchy
-        -- nextSceneButton = self:getObjectByName( "GoToScene2Btn" )
-        -- if nextSceneButton then
-        -- 	-- touch listener for the button
-        -- 	function nextSceneButton:touch ( event )
-        -- 		local phase = event.phase
-        -- 		if "ended" == phase then
-        -- 			composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
-        -- 		end
-        -- 	end
-        -- 	-- add the touch event listener to the button
-        -- 	nextSceneButton:addEventListener( "touch", nextSceneButton )
-        -- end
         
+		loseTheme = audio.loadStream("Music/gameOver.ogg")
+        playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
+
     end 
 end
 
@@ -98,6 +99,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
+        audio.stop( 3 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
 		-- if nextSceneButton then

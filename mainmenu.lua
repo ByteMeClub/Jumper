@@ -53,10 +53,13 @@ function scene:create( event )
     creditsButton.name = "credits"
     --creditsButton:scale(.1, .1)
 
+    
+
     sceneGroup:insert(background)
     sceneGroup:insert(playButton)
     sceneGroup:insert(instructionsButton)
     sceneGroup:insert(creditsButton)
+
 
 
     --add event listener to 'playButton' and 'instructionsButton' global variables that were created in drawMainMenu()
@@ -73,16 +76,7 @@ function scene:show( event )
 
     if phase == "will" then
         -- Called when the scene is still off screen and is about to move on screen
-        -- local title = self:getObjectByName( "Title" )
-        -- title.x = display.contentWidth / 2
-        -- title.y = display.contentHeight / 2
-        -- title.size = display.contentWidth / 20
-        -- local goToScene2Btn = self:getObjectByName( "GoToScene2Btn" )
-        -- goToScene2Btn.x = display.contentWidth - 95
-        -- goToScene2Btn.y = display.contentHeight - 35
-        -- local goToScene2Text = self:getObjectByName( "GoToScene2Text" )
-        -- goToScene2Text.x = display.contentWidth - 92
-        -- goToScene2Text.y = display.contentHeight - 35
+        
 
        
 
@@ -91,8 +85,12 @@ function scene:show( event )
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
+        
         menuTheme = audio.loadStream("Music/menuTheme.mp3")
-        menuThemeChannel = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
+        playMenuTheme = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
+      
+        --playMenuTheme = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
+
         
         -- we obtain the object by id from the scene's object hierarchy
         -- nextSceneButton = self:getObjectByName( "GoToScene2Btn" )
@@ -120,6 +118,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
+        audio.stop( 1 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
 		-- if nextSceneButton then
@@ -131,6 +130,7 @@ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
+    --audio.dispose( menuTheme )
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 
