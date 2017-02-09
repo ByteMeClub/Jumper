@@ -91,7 +91,7 @@ function scene:show( event )
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        menuTheme = audio.loadStream("Music/menuTheme.ogg")
+        menuTheme = audio.loadStream("Music/menuTheme.mp3")
         menuThemeChannel = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
         
         -- we obtain the object by id from the scene's object hierarchy
