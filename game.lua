@@ -18,6 +18,7 @@ Physics.setGravity( 0, 18)
 
 local background 
 local backButton
+local pauseButton
 local grass1
 local grass2
 local grass3
@@ -70,6 +71,21 @@ function nextScene (event)
 
 end
 
+
+function pauseScene (event)
+    Physics.pause()
+    heroObject:pause()
+    audio.pause(2)
+    native.showAlert('Jumper', 'Game Paused', {'Return to Menu', 'Resume'}, function(event)
+        if event.action == 'clicked' and event.index == 1 then
+            composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
+        else
+            heroObject:play()
+            Physics.start()
+            audio.resume( 2 )
+        end
+    end)
+end
 
 function heroJump(event)
     heroObject:applyLinearImpulse(0, -0.12, heroObject.x, heroObject.y)
@@ -177,6 +193,12 @@ function scene:create( event )
     backButton.x = display.contentCenterX - 230
     backButton.y = display.contentCenterY - 100
 
+    pauseButton = display.newImage("Buttons/backButton.png")
+    pauseButton.name = "pause"
+    pauseButton:scale(.5, .5)
+    pauseButton.x = display.contentCenterX 
+    pauseButton.y = display.contentCenterY - 125
+
     -- add images that will use Physics     
     grass1 = display.newImage( "Images/grass.png", 197, 300)
     grass1.name = "grass1"
@@ -227,6 +249,7 @@ function scene:create( event )
     -- IMPORTANT! If you add display components diectly to Physics and do not add them to sceneGroup, then they will not get removed automatically when scence is hidden/destroyed
     sceneGroup:insert(background)
     sceneGroup:insert(backButton)
+    sceneGroup:insert(pauseButton)
     sceneGroup:insert(grass1)
     sceneGroup:insert(grass2)
     sceneGroup:insert(grass3)
@@ -249,6 +272,7 @@ function scene:create( event )
     -- add Listeners
     backButton:addEventListener( "tap", nextScene )
     background:addEventListener("tap", heroJump)
+    pauseButton:addEventListener( "tap", pauseScene )
     --Runtime:addEventListener( "enterFrame", move )
 
 end
