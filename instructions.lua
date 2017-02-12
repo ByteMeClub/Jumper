@@ -25,7 +25,7 @@ function scene:create( event )
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
-    local background = display.newImage("Background/instructionsBackground.jpg")
+    local background = display.newImage("Background/creditsBackground.jpg")
     sceneGroup:insert(background)
 
     local backButton = display.newImage("Buttons/backButton.png")

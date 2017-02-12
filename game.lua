@@ -30,6 +30,30 @@ local scoreLabel
 local highScoreText
 local highScoreLabel
 
+local centerX = display.contentCenterX
+local centerY = display.contentCenterY
+local _W = display.contentWidth
+local _H = display.contentHeight
+
+-- Define reference points locations anchor ponts
+local TOP_REF = 0
+local BOTTOM_REF = 1
+local LEFT_REF = 0
+local RIGHT_REF = 1
+local CENTER_REF = 0.5
+local baseline = 280
+
+local Grass = display.newImage( "Images/grass.png" )
+Grass.anchorX = LEFT_REF
+Grass.x = 0
+Grass.y = 300
+local Grass2 = display.newImage( "Images/grass.png" )
+Grass2.anchorX = LEFT_REF
+Grass2.x = 480
+Grass2.y = 300 
+
+local tPrevious = system.getTimer()
+
 
 
 function nextScene (event)    
@@ -50,6 +74,28 @@ end
 function heroJump(event)
     heroObject:applyLinearImpulse(0, -0.12, heroObject.x, heroObject.y)
 end
+
+
+
+local function move(event)
+    local tDelta = event.time - tPrevious
+    tPrevious = event.time
+
+    local xOffset = ( .3 * tDelta )
+
+    Grass.x = Grass.x - xOffset
+    Grass2.x = Grass2.x - xOffset
+    
+    if (Grass.x + Grass.contentWidth) < 0 then
+        Grass:translate( 480 * 2, 0)
+    end
+    if (Grass2.x + Grass2.contentWidth) < 0 then
+        Grass2:translate( 480 * 2, 0)
+    end
+    
+end
+
+
 
 
 function rollObstacles(event)
@@ -104,6 +150,7 @@ end
 
 
 
+
 function scene:create( event )
     local sceneGroup = self.view
 
@@ -144,20 +191,20 @@ function scene:create( event )
 
    
     obstacle[1] = display.newImage( "Images/roadSign.png")
-    obstacle[1].x = 200
+    obstacle[1].x = 400
     obstacle[1].y = 275 
     obstacle[1]:scale(.7, .7)
     --obstacle[1].collType = "Images/asteroid"
     obstacle[1].name = "Asteroid 1"
 
     obstacle[2] = display.newImage( "Images/roadSign.png")
-    obstacle[2].x = 500
+    obstacle[2].x = 700
     obstacle[2].y = 275
     obstacle[2]:scale(.7, .7)
     obstacle[2].name = "Asteroid 2"
 
     obstacle[3] = display.newImage( "Images/roadSign.png")
-    obstacle[3].x = 800
+    obstacle[3].x = 1000
     obstacle[3].y = 275
     obstacle[3]:scale(.7, .7)
     obstacle[3].name = "Asteroid 2"
@@ -186,6 +233,9 @@ function scene:create( event )
     sceneGroup:insert(grass4)
     sceneGroup:insert(grass5)
 
+    sceneGroup:insert(Grass)
+    sceneGroup:insert(Grass2)
+
     sceneGroup:insert(heroObject)
     sceneGroup:insert(obstacle[1])
     sceneGroup:insert(obstacle[2])
@@ -199,6 +249,7 @@ function scene:create( event )
     -- add Listeners
     backButton:addEventListener( "tap", nextScene )
     background:addEventListener("tap", heroJump)
+    --Runtime:addEventListener( "enterFrame", move )
 
 end
 

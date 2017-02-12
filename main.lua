@@ -13,6 +13,23 @@ score = 0
 highScore = 0
 tempScore = 0
 
+--[[
+local centerX = display.contentCenterX
+local centerY = display.contentCenterY
+local _W = display.contentWidth
+local _H = display.contentHeight
+
+-- Define reference points locations anchor ponts
+local TOP_REF = 0
+local BOTTOM_REF = 1
+local LEFT_REF = 0
+local RIGHT_REF = 1
+local CENTER_REF = 0.5
+local baseline = 280
+]]
+
+
+
 local composer = require( "composer" )
 
 function onCollision( event )
@@ -47,6 +64,41 @@ function onCollision( event )
 
 end
 
+--[[
+local grass = display.newImage( "Images/grass.png" )
+grass.anchorX = LEFT_REF
+grass.x = 0
+grass.y = 300
+local grass2 = display.newImage( "Images/grass.png" )
+grass2.anchorX = LEFT_REF
+grass2.x = 480
+grass2.y = 300 
+
+-- solid ground, doesn't need to 
+
+local tPrevious = system.getTimer()
+local function move(event)
+	local tDelta = event.time - tPrevious
+	tPrevious = event.time
+
+	local xOffset = ( .3 * tDelta )
+
+	grass.x = grass.x - xOffset
+	grass2.x = grass2.x - xOffset
+	
+	if (grass.x + grass.contentWidth) < 0 then
+		grass:translate( 480 * 2, 0)
+	end
+	if (grass2.x + grass2.contentWidth) < 0 then
+		grass2:translate( 480 * 2, 0)
+	end
+	
+end
+
+]]
+
+
+
 -- require the composer library
 
 
@@ -56,6 +108,7 @@ end
 -- Add any system wide event handlers, location, key events, system resume/suspend, memory, etc.
 
 Runtime:addEventListener( "collision", onCollision )
+--Runtime:addEventListener( "enterFrame", move )
 
 -- load scene1
 composer.gotoScene( "mainmenu" )

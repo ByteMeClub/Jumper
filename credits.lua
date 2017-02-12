@@ -34,6 +34,28 @@ function scene:create( event )
     backButton.y = display.contentCenterY - 100
     sceneGroup:insert(backButton)
 
+    newLabel1 = display.newText("CREDITS", display.contentCenterX -10 , 60, native.systemFont, 50)
+    newLabel2 = display.newText("Made by MHS Game Dev. Team", display.contentCenterX -10 , 140, native.systemFont, 30)
+    newLabel3 = display.newText("___________________________", display.contentCenterX -10 , 160, native.systemFont, 30)
+    newLabel4 = display.newText("With Special Thanks to Sra. Licinski", display.contentCenterX -10 , 200, native.systemFont, 30)
+    newLabel5 = display.newText("___________________________", display.contentCenterX -10 , 220, native.systemFont, 30)
+    newLabel6 = display.newText("Some Music & Images From opengameart.org", display.contentCenterX -10 , 260, native.systemFont, 25)
+    
+    newLabel1:setTextColor( 0.5, 0, 0.5)
+    newLabel2:setTextColor( 0.5, 0, 0.5)
+    newLabel3:setTextColor( 0.5, 0, 0.5)
+    newLabel4:setTextColor( 0.5, 0, 0.5)
+    newLabel5:setTextColor( 0.5, 0, 0.5)
+    newLabel6:setTextColor( 0.5, 0, 0.5)
+
+
+    sceneGroup:insert(newLabel1)
+    sceneGroup:insert(newLabel2)
+    sceneGroup:insert(newLabel3)
+    sceneGroup:insert(newLabel4)
+    sceneGroup:insert(newLabel5)
+    sceneGroup:insert(newLabel6)
+
     backButton:addEventListener( "tap", nextScene )
        
 end
