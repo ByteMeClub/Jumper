@@ -84,8 +84,8 @@ function scene:show( event )
         -- e.g. start timers, begin animation, play audio, etc
         
         
-		loseTheme = audio.loadStream("Music/gameOver.ogg")
-        playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
+		--loseTheme = audio.loadStream("Music/gameOver.ogg")
+        --playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
 
     end 
 end
@@ -99,7 +99,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
-        audio.stop( 3 )
+        --audio.stop( 3 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
 		-- if nextSceneButton then

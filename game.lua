@@ -44,6 +44,7 @@ local RIGHT_REF = 1
 local CENTER_REF = 0.5
 local baseline = 280
 
+--[[
 local Grass = display.newImage( "Images/grass.png" )
 Grass.anchorX = LEFT_REF
 Grass.x = 0
@@ -52,7 +53,7 @@ local Grass2 = display.newImage( "Images/grass.png" )
 Grass2.anchorX = LEFT_REF
 Grass2.x = 480
 Grass2.y = 300 
-
+]]
 local tPrevious = system.getTimer()
 
 
@@ -60,6 +61,7 @@ local tPrevious = system.getTimer()
 function nextScene (event)    
     Physics.pause()
     heroObject:pause()
+    --audio.pause(2)
     native.showAlert('Jumper', 'Are you sure you want to exit the game?', {'Yes', 'Cancel'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
@@ -75,14 +77,14 @@ end
 function pauseScene (event)
     Physics.pause()
     heroObject:pause()
-    audio.pause(2)
+    --audio.pause(2)
     native.showAlert('Jumper', 'Game Paused', {'Return to Menu', 'Resume'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
         else
             heroObject:play()
             Physics.start()
-            audio.resume( 2 )
+            --audio.resume( 2 )
         end
     end)
 end
@@ -118,7 +120,7 @@ function rollObstacles(event)
 
 --get badguy to spawn back at start after they cross a certain x value and
 --game should restart upon contact  
-
+    
     local aSpeed = 0
     for i = 1, #obstacle, 1 do
 
@@ -180,6 +182,8 @@ function scene:create( event )
 
     score = 0
 
+    --audio.play(2)
+
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
 
     -- add static images
@@ -202,14 +206,19 @@ function scene:create( event )
     -- add images that will use Physics     
     grass1 = display.newImage( "Images/grass.png", 197, 300)
     grass1.name = "grass1"
+    
     grass2 = display.newImage("Images/grass.png", 290, 300)
     grass2.name = "grass2"
+    
     grass3 = display.newImage( "Images/grass.png", 197, -30)
     grass3.name = "grass3"
+    
     grass4 = display.newImage( "Images/grass.png", 600, 300)
     grass4.name = "grass4"
+    
     grass5 = display.newImage( "Images/grass.png", 800, 300)
     grass5.name = "grass5"
+   
 
    
     obstacle[1] = display.newImage( "Images/roadSign.png")
@@ -231,7 +240,7 @@ function scene:create( event )
     obstacle[3]:scale(.7, .7)
     obstacle[3].name = "Asteroid 2"
     
-    local heroSheet = graphics.newImageSheet( "Images/Sprite.tif", { width=1080, height=1080, numFrames=8 } )
+    local heroSheet = graphics.newImageSheet( "Images/Ninja2.png", { width=1080, height=1080, numFrames=8 } )
     -- play 8 frames every 250 ms
     heroObject = display.newSprite( heroSheet, {start=1, count=8, time=250 } )
     heroObject.name = "greenGuy"
@@ -239,6 +248,18 @@ function scene:create( event )
     heroObject.x = 50
     heroObject.y = 260  
     heroObject:scale(.1, .1)
+
+
+--[[
+    local roadSheet = graphics.newImageSheet( "Images/Road.png", { width=1920, height=810, numFrames=12 } )
+
+    roadObject = display.newSprite( roadSheet, {start=1, count=12, time=250 } )
+    roadObject.name = "road"
+
+    roadObject.x = 50
+    roadObject.y = 260  
+]]
+
         
     scoreText = display.newText(score, display.contentCenterX + 50, 90, native.systemFont, 30)
     scoreLabel = display.newText("Score: ", display.contentCenterX -10 , 90, native.systemFont, 30)
@@ -256,8 +277,8 @@ function scene:create( event )
     sceneGroup:insert(grass4)
     sceneGroup:insert(grass5)
 
-    sceneGroup:insert(Grass)
-    sceneGroup:insert(Grass2)
+    --sceneGroup:insert(Grass)
+    --sceneGroup:insert(Grass2)
 
     sceneGroup:insert(heroObject)
     sceneGroup:insert(obstacle[1])
@@ -304,8 +325,8 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
 
-        gameTheme = audio.loadStream("Music/playTheme2.ogg")
-        playGameTheme = audio.play( gameTheme, { channel=2, loops=-1, fadein=0 } )
+        --gameTheme = audio.loadStream("Music/playTheme2.ogg")
+        --playGameTheme = audio.play( gameTheme, { channel=2, loops=-1, fadein=0 } )
 
         print("STARTING SHOW.did !")
 
@@ -342,7 +363,7 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
         -- heroObject:pause()
 
-        audio.stop( 2 )
+        --audio.stop( 2 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
         -- if nextSceneButton then

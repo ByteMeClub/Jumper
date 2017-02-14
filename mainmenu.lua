@@ -17,11 +17,13 @@ local scene = composer.newScene()
 
 function nextScene (event)
     composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )
+    --audio.pause(1)
 end
 
 
 
 function scene:create( event )
+    --audio.pause(1)
     local sceneGroup = self.view
 
     -- Called when the scene's view does not exist
@@ -86,8 +88,8 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
         
-        menuTheme = audio.loadStream("Music/menuTheme.mp3")
-        playMenuTheme = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
+        --menuTheme = audio.loadStream("Music/menuTheme.mp3")
+        --playMenuTheme = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
       
         --playMenuTheme = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
 
