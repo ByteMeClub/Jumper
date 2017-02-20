@@ -32,6 +32,7 @@ local baseline = 280
 
 local composer = require( "composer" )
 
+--[[
 function onCollision( event )
 	-- event.phase is a Corona-provided global varible that provides information on what phase the event (in this case collision) is in
 	if (event.phase == "began") then
@@ -63,6 +64,7 @@ function onCollision( event )
 	end
 
 end
+]]
 
 --[[
 local grass = display.newImage( "Images/grass.png" )
@@ -107,7 +109,7 @@ end
 
 -- Add any system wide event handlers, location, key events, system resume/suspend, memory, etc.
 
-Runtime:addEventListener( "collision", onCollision )
+--Runtime:addEventListener( "collision", onCollision )
 --Runtime:addEventListener( "enterFrame", move )
 
 -- load scene1

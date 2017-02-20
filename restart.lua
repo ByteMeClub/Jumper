@@ -31,10 +31,10 @@ function scene:create( event )
     background:scale(1.2, 1.2)
     sceneGroup:insert(background)
 
-    newScoreLabel = display.newText("Score That Round: ", display.contentCenterX -10 , 120, native.systemFont, 30)
-    newScoreText = display.newText(highScore, display.contentCenterX -10 , 160, native.systemFont, 40)
-    newScoreLabel:setTextColor(500,300,0)
-    newScoreText:setTextColor(255,200,0)
+    newScoreLabel = display.newText("Score: ", display.contentCenterX -30 , 120, native.systemFont, 80)
+    newScoreText = display.newText(score, display.contentCenterX + 110 , 120, native.systemFont, 80)
+    newScoreLabel:setTextColor(0,0,0)
+    newScoreText:setTextColor(0,0,0)
 
     local backButton = display.newImage("Buttons/backButton.png")
     backButton.name = "game"
@@ -84,8 +84,8 @@ function scene:show( event )
         -- e.g. start timers, begin animation, play audio, etc
         
         
-		--loseTheme = audio.loadStream("Music/gameOver.ogg")
-        --playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
+		loseTheme = audio.loadStream("Music/gameOver.ogg")
+        playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
 
     end 
 end
@@ -99,7 +99,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
-        --audio.stop( 3 )
+        audio.stop( 3 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
 		-- if nextSceneButton then

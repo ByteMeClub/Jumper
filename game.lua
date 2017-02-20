@@ -61,13 +61,14 @@ local tPrevious = system.getTimer()
 function nextScene (event)    
     Physics.pause()
     heroObject:pause()
-    --audio.pause(2)
+    audio.pause(2)
     native.showAlert('Jumper', 'Are you sure you want to exit the game?', {'Yes', 'Cancel'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
         else
             heroObject:play()
             Physics.start()
+            audio.resume(2)
         end
     end)
 
@@ -77,14 +78,14 @@ end
 function pauseScene (event)
     Physics.pause()
     heroObject:pause()
-    --audio.pause(2)
+    audio.pause(2)
     native.showAlert('Jumper', 'Game Paused', {'Return to Menu', 'Resume'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
         else
             heroObject:play()
             Physics.start()
-            --audio.resume( 2 )
+            audio.resume( 2 )
         end
     end)
 end
@@ -167,6 +168,39 @@ function rollObstacles(event)
 end
 
 
+local function onLocalCollision(self, event)
+
+    if (event.phase == "began") then
+
+        local obj1 = self.name
+        local obj2 = event.other.name
+        
+        if (obj1 == "greenGuy") then
+            if (obj2 == "Asteroid 1" or obj2 == "Asteroid 2" or obj2 == "Asteroid 3") then
+                event.phase = "ended"
+--                tempScore = score
+                composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
+            elseif (obj2 == "grass1" or obj2 == "grass2" or obj2 == "grass3" or obj2 == "grass4" or obj2 == "grass5") then
+                print("filler")
+            else
+                print("Object 2 hitting hero is:" .. obj2 .. "<<")
+            end
+        elseif  (obj2 == "greenGuy") then
+            if (obj1 == "Asteroid 1" or obj1 == "Asteroid 2" or obj1 == "Asteroid 3") then
+                event.phase = "ended"
+--                tempScore = score
+                composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
+            elseif (obj1 == "grass1" or obj1 == "grass2" or obj1 == "grass3" or obj1 == "grass4" or obj1 == "grass5") then
+                print("filler")
+            else
+                print("Object 1 hitting hero is:" .. obj1 .. "<<")
+            end
+        end 
+    end
+
+
+end
+
 
 
 function scene:create( event )
@@ -221,33 +255,33 @@ function scene:create( event )
    
 
    
-    obstacle[1] = display.newImage( "Images/roadSign.png")
+    obstacle[1] = display.newImage( "Images/asteroid.png")
     obstacle[1].x = 400
     obstacle[1].y = 275 
-    obstacle[1]:scale(.7, .7)
+    obstacle[1]:scale(.5, .5)
     --obstacle[1].collType = "Images/asteroid"
     obstacle[1].name = "Asteroid 1"
 
-    obstacle[2] = display.newImage( "Images/roadSign.png")
+    obstacle[2] = display.newImage( "Images/asteroid.png")
     obstacle[2].x = 700
     obstacle[2].y = 275
-    obstacle[2]:scale(.7, .7)
+    obstacle[2]:scale(.5, .5)
     obstacle[2].name = "Asteroid 2"
 
-    obstacle[3] = display.newImage( "Images/roadSign.png")
+    obstacle[3] = display.newImage( "Images/asteroid.png")
     obstacle[3].x = 1000
     obstacle[3].y = 275
-    obstacle[3]:scale(.7, .7)
+    obstacle[3]:scale(.5, .5)
     obstacle[3].name = "Asteroid 2"
     
-    local heroSheet = graphics.newImageSheet( "Images/Ninja2.png", { width=1080, height=1080, numFrames=8 } )
+    local heroSheet = graphics.newImageSheet( "greenman.png", { width=128, height=128, numFrames=15 } )
     -- play 8 frames every 250 ms
-    heroObject = display.newSprite( heroSheet, {start=1, count=8, time=250 } )
+    heroObject = display.newSprite( heroSheet, {start=1, count=15, time=500 } )
     heroObject.name = "greenGuy"
 
     heroObject.x = 50
     heroObject.y = 260  
-    heroObject:scale(.1, .1)
+    --heroObject:scale(.1, .1)
 
 
 --[[
@@ -325,8 +359,8 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
 
-        --gameTheme = audio.loadStream("Music/playTheme2.ogg")
-        --playGameTheme = audio.play( gameTheme, { channel=2, loops=-1, fadein=0 } )
+        playTheme = audio.loadStream("Music/playTheme2.ogg")
+        playMenuTheme = audio.play( playTheme, { channel=2, loops=-1, fadein=0 } )
 
         print("STARTING SHOW.did !")
 
@@ -344,6 +378,9 @@ function scene:show( event )
         Physics.addBody(obstacle[1], "dynamic", {radius = 20, bounce = 0})
         Physics.addBody(obstacle[2], "dynamic", {radius = 20, bounce = 0})
         Physics.addBody(obstacle[3], "dynamic", {radius = 20, bounce = 0})
+
+        heroObject.collision = onLocalCollision
+        heroObject:addEventListener( "collision")
 
         Runtime:addEventListener("enterFrame", rollObstacles)
     end 
@@ -363,7 +400,7 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
         -- heroObject:pause()
 
-        --audio.stop( 2 )
+        audio.stop( 2 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
         -- if nextSceneButton then
