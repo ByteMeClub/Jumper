@@ -12,21 +12,8 @@ display.setStatusBar( display.HiddenStatusBar )
 score = 0
 highScore = 0
 tempScore = 0
-
---[[
-local centerX = display.contentCenterX
-local centerY = display.contentCenterY
-local _W = display.contentWidth
-local _H = display.contentHeight
-
--- Define reference points locations anchor ponts
-local TOP_REF = 0
-local BOTTOM_REF = 1
-local LEFT_REF = 0
-local RIGHT_REF = 1
-local CENTER_REF = 0.5
-local baseline = 280
-]]
+Count = 0
+canJump = false
 
 
 

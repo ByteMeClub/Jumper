@@ -91,7 +91,10 @@ function pauseScene (event)
 end
 
 function heroJump(event)
-    heroObject:applyLinearImpulse(0, -0.12, heroObject.x, heroObject.y)
+    if (canJump == true ) then
+        heroObject:applyLinearImpulse(0, -0.12, heroObject.x, heroObject.y)
+        canJump = false
+    end
 end
 
 
@@ -132,6 +135,7 @@ function rollObstacles(event)
                 highScore = score
                 highScoreText.text = highScore
             end
+            Count = Count + 1
             obstacle[i].x = 850
         else
             if (score >= 5) then
@@ -181,8 +185,10 @@ local function onLocalCollision(self, event)
 --                tempScore = score
                 composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
             elseif (obj2 == "grass1" or obj2 == "grass2" or obj2 == "grass3" or obj2 == "grass4" or obj2 == "grass5") then
+                canJump = true
                 print("filler")
             else
+                
                 print("Object 2 hitting hero is:" .. obj2 .. "<<")
             end
         elseif  (obj2 == "greenGuy") then
@@ -192,7 +198,9 @@ local function onLocalCollision(self, event)
                 composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
             elseif (obj1 == "grass1" or obj1 == "grass2" or obj1 == "grass3" or obj1 == "grass4" or obj1 == "grass5") then
                 print("filler")
+                canJump = true
             else
+                
                 print("Object 1 hitting hero is:" .. obj1 .. "<<")
             end
         end 

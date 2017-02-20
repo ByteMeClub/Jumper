@@ -14,28 +14,53 @@ local scene = composer.newScene()
 --local nextSceneButton
 
 function nextScene (event)
-    composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )
+    composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )    
 end
 
 
+function showScore(event)
+
+    print("update score")
+    
+    newScoreText = display.newText(Count, display.contentCenterX + 110 , 120, native.systemFont, 80)
+
+    --tempText = display.newText(Count, display.contentCenterX, 120, native.systemFont, 100)
+    Count = 0
+   
+    newScoreText:setTextColor(0,0,0)
+
+    
+    sceneGroup:insert(newScoreText)
+
+end
+
 function scene:create( event )
-    local sceneGroup = self.view
+     sceneGroup = self.view
 
     -- Called when the scene's view does not exist
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
-    local background = display.newImage("youLose.png")
+
+    newScoreLabel = display.newText("Score: ", display.contentCenterX -30 , 120, native.systemFont, 80)
+    
+
+
+    background = display.newImage("youLose.png")
     background.x = display.contentCenterX
     background.y = display.contentCenterY
     background:scale(1.2, 1.2)
     sceneGroup:insert(background)
 
+--[[
+    print("update score")
     newScoreLabel = display.newText("Score: ", display.contentCenterX -30 , 120, native.systemFont, 80)
-    newScoreText = display.newText(score, display.contentCenterX + 110 , 120, native.systemFont, 80)
+    newScoreText = display.newText(Count, display.contentCenterX + 110 , 120, native.systemFont, 80)
+    --tempText = display.newText(Count, display.contentCenterX, 120, native.systemFont, 100)
+    Count = 0
     newScoreLabel:setTextColor(0,0,0)
     newScoreText:setTextColor(0,0,0)
-
+]]
     local backButton = display.newImage("Buttons/backButton.png")
     backButton.name = "game"
     backButton:scale(.75, .75)
@@ -44,7 +69,12 @@ function scene:create( event )
     sceneGroup:insert(backButton)
 
     sceneGroup:insert(newScoreLabel)
+
+--[[
+    sceneGroup:insert(newScoreLabel)
     sceneGroup:insert(newScoreText)
+    ]]
+    --sceneGroup:insert(tempText)
 
     backButton:addEventListener( "tap", nextScene )
 
@@ -83,7 +113,7 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
         
-        
+        background:addEventListener("tap", showScore)
 		loseTheme = audio.loadStream("Music/gameOver.ogg")
         playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
 
@@ -111,6 +141,9 @@ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
+
+
+    background:removeEventListener("tap", showScore)
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 
