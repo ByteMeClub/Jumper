@@ -14,14 +14,15 @@ local scene = composer.newScene()
 --local nextSceneButton
 
 function nextScene (event)
-    composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )    
+    composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )   
+    audio.stop(3)
+    
+    
 end
 
 
 function showScore(event)
 
-    print("update score")
-    
     newScoreText = display.newText(Count, display.contentCenterX + 110 , 120, native.systemFont, 80)
 
     --tempText = display.newText(Count, display.contentCenterX, 120, native.systemFont, 100)
@@ -44,7 +45,14 @@ function scene:create( event )
 
     newScoreLabel = display.newText("Score: ", display.contentCenterX -30 , 120, native.systemFont, 80)
     
+    newScoreText = display.newText(score, display.contentCenterX + 110 , 120, native.systemFont, 80)
 
+    --tempText = display.newText(Count, display.contentCenterX, 120, native.systemFont, 100)
+    Count = 0
+   
+    newScoreText:setTextColor(0,0,0)
+    newScoreLabel:setTextColor(0,0,0)
+    
 
     background = display.newImage("youLose.png")
     background.x = display.contentCenterX
@@ -68,6 +76,7 @@ function scene:create( event )
     backButton.y = display.contentCenterY - 100
     sceneGroup:insert(backButton)
 
+    sceneGroup:insert(newScoreText)
     sceneGroup:insert(newScoreLabel)
 
 --[[
@@ -104,16 +113,12 @@ function scene:show( event )
         --creditsButton:addEventListener( "tap", myMenu.showCredits )
 
 
-
-
-
     elseif phase == "did" then
         -- Called when the scene is now on screen
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        
-        background:addEventListener("tap", showScore)
+                
 		loseTheme = audio.loadStream("Music/gameOver.ogg")
         playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
 
@@ -135,6 +140,7 @@ function scene:hide( event )
 		-- if nextSceneButton then
 		-- 	nextSceneButton:removeEventListener( "touch", nextSceneButton )
 		-- end
+        composer.removeScene("restart")
     end 
 end
 
@@ -143,7 +149,7 @@ function scene:destroy( event )
     local sceneGroup = self.view
 
 
-    background:removeEventListener("tap", showScore)
+    
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 

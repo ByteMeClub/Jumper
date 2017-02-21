@@ -128,7 +128,7 @@ function rollObstacles(event)
     local aSpeed = 0
     for i = 1, #obstacle, 1 do
 
-        if obstacle[i].x < 0 then
+        if obstacle[i].x < (heroObject.x - 50) then
             score = score + 1
             scoreText.text = score
             if (score > highScore) then
@@ -223,6 +223,8 @@ function scene:create( event )
     -- INSERT code here to initialize the scene
 
     score = 0
+
+    print("SCORE = ", score)
 
     --audio.play(2)
 
