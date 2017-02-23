@@ -181,7 +181,7 @@ local function onLocalCollision(self, event)
             if (obj2 == "Asteroid 1" or obj2 == "Asteroid 2" or obj2 == "Asteroid 3") then
                 event.phase = "ended"
 --                tempScore = score
-                composer.gotoScene('restart', {time = 500, effect = 'crossFade'})
+                composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
             elseif (obj2 == "grass1" or obj2 == "grass2" or obj2 == "grass3" or obj2 == "grass4" or obj2 == "grass5") then
                 canJump = true
                 print("filler")
@@ -193,7 +193,7 @@ local function onLocalCollision(self, event)
             if (obj1 == "Asteroid 1" or obj1 == "Asteroid 2" or obj1 == "Asteroid 3") then
                 event.phase = "ended"
 --                tempScore = score
-                composer.gotoScene('restart', {time = 500, effect = 'crossFade'})
+                composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
             elseif (obj1 == "grass1" or obj1 == "grass2" or obj1 == "grass3" or obj1 == "grass4" or obj1 == "grass5") then
                 print("filler")
                 canJump = true
@@ -237,7 +237,7 @@ function scene:create( event )
     backButton.name = "mainmenu"
     backButton:scale(.75, .75)
     backButton.x = display.contentCenterX - 230
-    backButton.y = display.contentCenterY - 100
+    backButton.y = display.contentCenterY - 80
 
     pauseButton = display.newImage("Buttons/pauseButton.png")
     pauseButton.name = "pause"
