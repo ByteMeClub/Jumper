@@ -17,7 +17,7 @@ local scene = composer.newScene()
 
 function nextScene (event)
     composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )
-    audio.pause(1)
+    --audio.pause(1)
 end
 
 
@@ -120,7 +120,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
-        audio.stop( 1 )
+        --audio.stop( 1 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
 		-- if nextSceneButton then
@@ -133,7 +133,7 @@ end
 function scene:destroy( event )
     local sceneGroup = self.view
     
-    audio.dispose( menuTheme )
+    --audio.dispose( menuTheme )
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 

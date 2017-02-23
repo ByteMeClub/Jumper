@@ -88,8 +88,8 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
         
-        creditsTheme = audio.loadStream("Music/creditsTheme.OGG")
-        playCreditsTheme = audio.play( creditsTheme, { channel=4, loops=0, fadein=0 } )
+        --creditsTheme = audio.loadStream("Music/creditsTheme.OGG")
+        --playCreditsTheme = audio.play( creditsTheme, { channel=4, loops=0, fadein=0 } )
         
     end 
 end
@@ -103,7 +103,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
-        audio.stop( 4 )
+        --audio.stop( 4 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
         -- if nextSceneButton then

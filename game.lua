@@ -61,14 +61,12 @@ local tPrevious = system.getTimer()
 function nextScene (event)    
     Physics.pause()
     heroObject:pause()
-    audio.pause(2)
     native.showAlert('Jumper', 'Are you sure you want to exit the game?', {'Yes', 'Cancel'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
         else
             heroObject:play()
             Physics.start()
-            audio.resume(2)
         end
     end)
 
@@ -78,14 +76,14 @@ end
 function pauseScene (event)
     Physics.pause()
     heroObject:pause()
-    audio.pause(2)
+    audio.pause(1)
     native.showAlert('Jumper', 'Game Paused', {'Return to Menu', 'Resume'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
         else
             heroObject:play()
             Physics.start()
-            audio.resume( 2 )
+            audio.resume(1)
         end
     end)
 end
@@ -183,7 +181,7 @@ local function onLocalCollision(self, event)
             if (obj2 == "Asteroid 1" or obj2 == "Asteroid 2" or obj2 == "Asteroid 3") then
                 event.phase = "ended"
 --                tempScore = score
-                composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
+                composer.gotoScene('restart', {time = 500, effect = 'crossFade'})
             elseif (obj2 == "grass1" or obj2 == "grass2" or obj2 == "grass3" or obj2 == "grass4" or obj2 == "grass5") then
                 canJump = true
                 print("filler")
@@ -195,7 +193,7 @@ local function onLocalCollision(self, event)
             if (obj1 == "Asteroid 1" or obj1 == "Asteroid 2" or obj1 == "Asteroid 3") then
                 event.phase = "ended"
 --                tempScore = score
-                composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
+                composer.gotoScene('restart', {time = 500, effect = 'crossFade'})
             elseif (obj1 == "grass1" or obj1 == "grass2" or obj1 == "grass3" or obj1 == "grass4" or obj1 == "grass5") then
                 print("filler")
                 canJump = true
@@ -241,7 +239,7 @@ function scene:create( event )
     backButton.x = display.contentCenterX - 230
     backButton.y = display.contentCenterY - 100
 
-    pauseButton = display.newImage("Buttons/backButton.png")
+    pauseButton = display.newImage("Buttons/pauseButton.png")
     pauseButton.name = "pause"
     pauseButton:scale(.5, .5)
     pauseButton.x = display.contentCenterX 
@@ -369,8 +367,8 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
 
-        playTheme = audio.loadStream("Music/playTheme2.ogg")
-        playMenuTheme = audio.play( playTheme, { channel=2, loops=-1, fadein=0 } )
+        --playTheme = audio.loadStream("Music/playTheme2.ogg")
+        --playMenuTheme = audio.play( playTheme, { channel=2, loops=-1, fadein=0 } )
 
         print("STARTING SHOW.did !")
 
@@ -410,7 +408,7 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
         -- heroObject:pause()
 
-        audio.stop( 2 )
+        --audio.stop( 2 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
         -- if nextSceneButton then

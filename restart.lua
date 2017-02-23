@@ -15,7 +15,7 @@ local scene = composer.newScene()
 
 function nextScene (event)
     composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )   
-    audio.stop(3)
+    audio.resume(1)
     
     
 end
@@ -37,6 +37,8 @@ end
 
 function scene:create( event )
      sceneGroup = self.view
+
+     audio.pause(1)
 
     -- Called when the scene's view does not exist
     -- 
@@ -119,8 +121,8 @@ function scene:show( event )
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
                 
-		loseTheme = audio.loadStream("Music/gameOver.ogg")
-        playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
+		--loseTheme = audio.loadStream("Music/gameOver.ogg")
+        --playLoseTheme = audio.play( loseTheme, { channel=3, loops=0, fadein=0 } )
 
     end 
 end
@@ -134,7 +136,7 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
-        audio.stop( 3 )
+        --audio.stop( 3 )
     elseif phase == "did" then
         -- Called when the scene is now off screen
 		-- if nextSceneButton then
