@@ -45,21 +45,21 @@ function scene:create( event )
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
 
-    newScoreLabel = display.newText("Score: ", display.contentCenterX -30 , 120, native.systemFont, 80)
-    
-    newScoreText = display.newText(score, display.contentCenterX + 110 , 120, native.systemFont, 80)
+    newScoreLabel = display.newText("Score: ", display.contentCenterX -30 , 270, native.systemFont, 80)
+    newScoreLabel:setTextColor(50,100,100,35)
+
+
+    newScoreText = display.newText(score, display.contentCenterX + 110 , 270, native.systemFont, 80)
 
     --tempText = display.newText(Count, display.contentCenterX, 120, native.systemFont, 100)
     Count = 0
    
-    newScoreText:setTextColor(0,0,0)
-    newScoreLabel:setTextColor(0,0,0)
     
 
     background = display.newImage("youLose.png")
     background.x = display.contentCenterX
     background.y = display.contentCenterY
-    background:scale(1.2, 1.2)
+    background:scale(.4, .4)
     sceneGroup:insert(background)
 
 --[[

@@ -25,14 +25,14 @@ function scene:create( event )
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
-    local background = display.newImage("Background/creditsBackground.jpg")
+    local background = display.newImage("instructionsBackground.jpg")
     sceneGroup:insert(background)
 
     local backButton = display.newImage("Buttons/backButton.png")
     backButton.name = "mainmenu"
     backButton:scale(.75, .75)
     backButton.x = display.contentCenterX - 230
-    backButton.y = display.contentCenterY - 100
+    backButton.y = display.contentCenterY -125
     sceneGroup:insert(backButton)
 
     newLabel1 = display.newText("INSTRUCTIONS", display.contentCenterX -10 , 60, native.systemFont, 50)

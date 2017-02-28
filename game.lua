@@ -97,23 +97,6 @@ end
 
 
 
-local function move(event)
-    local tDelta = event.time - tPrevious
-    tPrevious = event.time
-
-    local xOffset = ( .3 * tDelta )
-
-    Grass.x = Grass.x - xOffset
-    Grass2.x = Grass2.x - xOffset
-    
-    if (Grass.x + Grass.contentWidth) < 0 then
-        Grass:translate( 480 * 2, 0)
-    end
-    if (Grass2.x + Grass2.contentWidth) < 0 then
-        Grass2:translate( 480 * 2, 0)
-    end
-    
-end
 
 
 
@@ -182,7 +165,7 @@ local function onLocalCollision(self, event)
                 event.phase = "ended"
 --                tempScore = score
                 composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
-            elseif (obj2 == "grass1" or obj2 == "grass2" or obj2 == "grass3" or obj2 == "grass4" or obj2 == "grass5") then
+            elseif (obj2 == "grass1" or obj2 == "grass2" or obj2 == "grass4" or obj2 == "grass5") then
                 canJump = true
                 print("filler")
             else
@@ -194,7 +177,7 @@ local function onLocalCollision(self, event)
                 event.phase = "ended"
 --                tempScore = score
                 composer.gotoScene('restart', {time = 500, effect = 'zoomOutIn'})
-            elseif (obj1 == "grass1" or obj1 == "grass2" or obj1 == "grass3" or obj1 == "grass4" or obj1 == "grass5") then
+            elseif (obj1 == "grass1" or obj1 == "grass2" or obj1 or obj1 == "grass4" or obj1 == "grass5") then
                 print("filler")
                 canJump = true
             else
@@ -248,38 +231,33 @@ function scene:create( event )
     -- add images that will use Physics     
     grass1 = display.newImage( "Images/grass.png", 197, 300)
     grass1.name = "grass1"
-    
-    grass2 = display.newImage("Images/grass.png", 290, 300)
+    grass2 = display.newImage( "Images/grass.png", 400, 300)
     grass2.name = "grass2"
-    
-    grass3 = display.newImage( "Images/grass.png", 197, -30)
-    grass3.name = "grass3"
-    
-    grass4 = display.newImage( "Images/grass.png", 600, 300)
+    grass4 = display.newImage( "Images/grass.png", 700, 300)
     grass4.name = "grass4"
-    
-    grass5 = display.newImage( "Images/grass.png", 800, 300)
+    grass5 = display.newImage( "Images/grass.png", 1000, 300 )
     grass5.name = "grass5"
-   
+    
+    
 
    
     obstacle[1] = display.newImage( "Images/asteroid.png")
     obstacle[1].x = 400
     obstacle[1].y = 275 
-    obstacle[1]:scale(.5, .5)
+    obstacle[1]:scale(.2, .2)
     --obstacle[1].collType = "Images/asteroid"
     obstacle[1].name = "Asteroid 1"
 
     obstacle[2] = display.newImage( "Images/asteroid.png")
     obstacle[2].x = 700
     obstacle[2].y = 275
-    obstacle[2]:scale(.5, .5)
+    obstacle[2]:scale(.2, .2)
     obstacle[2].name = "Asteroid 2"
 
     obstacle[3] = display.newImage( "Images/asteroid.png")
     obstacle[3].x = 1000
     obstacle[3].y = 275
-    obstacle[3]:scale(.5, .5)
+    obstacle[3]:scale(.2, .2)
     obstacle[3].name = "Asteroid 2"
     
     local heroSheet = graphics.newImageSheet( "greenman.png", { width=128, height=128, numFrames=15 } )
@@ -315,9 +293,11 @@ function scene:create( event )
     sceneGroup:insert(pauseButton)
     sceneGroup:insert(grass1)
     sceneGroup:insert(grass2)
-    sceneGroup:insert(grass3)
     sceneGroup:insert(grass4)
     sceneGroup:insert(grass5)
+    
+
+    
 
     --sceneGroup:insert(Grass)
     --sceneGroup:insert(Grass2)
@@ -376,9 +356,9 @@ function scene:show( event )
 
         Physics.addBody(grass1, "static", {bounce = 0})
         Physics.addBody(grass2, "static", {bounce = 0})
-        Physics.addBody(grass3, "static", {bounce = 0})
         Physics.addBody(grass4, "static", {bounce = 0})
         Physics.addBody(grass5, "static", {bounce = 0})
+        
         
         Physics.addBody(heroObject, "dynamic", {radius = 20, bounce = 0})
         heroObject:play()
@@ -428,10 +408,7 @@ function scene:destroy( event )
     -- INSERT code here to cleanup the scene
     -- e.g. remove display objects, remove touch listeners, save state, etc
     Physics.removeBody(grass1)
-    Physics.removeBody(grass2)
-    Physics.removeBody(grass3)
-    Physics.removeBody(grass4)
-    Physics.removeBody(grass5)
+    
     Physics.removeBody(heroObject)
     Physics.removeBody(obstacle[1])
     Physics.removeBody(obstacle[2])
