@@ -49,22 +49,7 @@ function scene:show( event )
     local phase = event.phase
 
     if phase == "will" then
-        -- Called when the scene is still off screen and is about to move on screen
-        -- local title = self:getObjectByName( "Title" )
-        -- title.x = display.contentWidth / 2
-        -- title.y = display.contentHeight / 2
-        -- title.size = display.contentWidth / 20
-        -- local goToScene2Btn = self:getObjectByName( "GoToScene2Btn" )
-        -- goToScene2Btn.x = display.contentWidth - 95
-        -- goToScene2Btn.y = display.contentHeight - 35
-        -- local goToScene2Text = self:getObjectByName( "GoToScene2Text" )
-        -- goToScene2Text.x = display.contentWidth - 92
-        -- goToScene2Text.y = display.contentHeight - 35
-
-        -- add event listener to 'playButton' and 'instructionsButton' global variables that were created in drawMainMenu()
-        --playButton:addEventListener( "tap", myMenu.play )
-        --instructionsButton:addEventListener( "tap", myMenu.showInstructions )
-        --creditsButton:addEventListener( "tap", myMenu.showCredits )
+         
 
     elseif phase == "did" then
         -- Called when the scene is now on screen

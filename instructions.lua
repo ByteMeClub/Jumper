@@ -25,7 +25,10 @@ function scene:create( event )
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
-    local background = display.newImage("instructionsBackground.jpg")
+    local background = display.newImage("Background/Instructions.png")
+    background:scale(.32,.32)
+    background.x = display.contentCenterX 
+    background.y = display.contentCenterY 
     sceneGroup:insert(background)
 
     local backButton = display.newImage("Buttons/backButton.png")
@@ -35,25 +38,9 @@ function scene:create( event )
     backButton.y = display.contentCenterY -125
     sceneGroup:insert(backButton)
 
-    newLabel1 = display.newText("INSTRUCTIONS", display.contentCenterX -10 , 60, native.systemFont, 50)
-    newLabel2 = display.newText("AVOID THE ASTEROIDS!", display.contentCenterX -10 , 150, native.systemFont, 30)
-    newLabel3 = display.newText("Tap anywhere on the screen to jump", display.contentCenterX -10 , 200, native.systemFont, 30)
-    newLabel4 = display.newText("Score increases as you dodge asteroids", display.contentCenterX -10 , 250, native.systemFont, 30)
-    
-    
-    
-    newLabel1:setTextColor( 0.5, 0, 0.5)
-    newLabel2:setTextColor( 0.5, 0, 0.5)
-    newLabel3:setTextColor( 0.5, 0, 0.5)
-    newLabel4:setTextColor( 0.5, 0, 0.5)
-    
+   
     
 
-
-    sceneGroup:insert(newLabel1)
-    sceneGroup:insert(newLabel2)
-    sceneGroup:insert(newLabel3)
-    sceneGroup:insert(newLabel4)
     
     
 

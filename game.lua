@@ -80,6 +80,7 @@ function pauseScene (event)
     native.showAlert('Jumper', 'Game Paused', {'Return to Menu', 'Resume'}, function(event)
         if event.action == 'clicked' and event.index == 1 then
             composer.gotoScene('mainmenu', {time = 500, effect = 'slideRight'})
+            audio.resume(1)
         else
             heroObject:play()
             Physics.start()
@@ -122,22 +123,22 @@ function rollObstacles(event)
             if (score >= 5) then
                 aSpeed = math.random(-310, -145)
             elseif (score >= 10) then
-                aSpeed = math.random(-430, -145)
+                aSpeed = math.random(-500, -245)
             elseif (score >= 20) then
-                aSpeed = math.random(-540, -145)
+                aSpeed = math.random(-940, -345)
             elseif (score >= 30) then
-                aSpeed = math.random(-650, -145)
+                aSpeed = math.random(-1550, -445)
             elseif (score >= 40) then
-                aSpeed = math.random(-670, -145)
+                aSpeed = math.random(-1930, -545)
             elseif (score >= 50) then
-                aSpeed = math.random(-674, -145)
+                aSpeed = math.random(-2400, -645)
             elseif (score >= 60) then
-                aSpeed = math.random(-680, -150)
+                aSpeed = math.random(-2900, -750)
             elseif (score >= 70) then
-                aSpeed = math.random(-690, -155)
+                aSpeed = math.random(-3400, -855)
             elseif (score >= 80) then
-                aSpeed = math.random(-700, -160)
-            elseif (score >= 90) then
+                aSpeed = math.random(-700, -100)
+            elseif (score >= 90) then 
                 aSpeed = math.random(-710, -170)
             elseif (score >= 100) then
                 aSpeed = math.random(-720, -190)
