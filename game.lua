@@ -123,25 +123,25 @@ function rollObstacles(event)
             if (score >= 5) then
                 aSpeed = math.random(-310, -145)
             elseif (score >= 10) then
-                aSpeed = math.random(-500, -245)
+                aSpeed = math.random(-900, -845)
             elseif (score >= 20) then
-                aSpeed = math.random(-940, -345)
+                aSpeed = math.random(-1840, -1745)
             elseif (score >= 30) then
-                aSpeed = math.random(-1550, -445)
+                aSpeed = math.random(-2750, -445)
             elseif (score >= 40) then
-                aSpeed = math.random(-1930, -545)
+                aSpeed = math.random(-3630, -3600)
             elseif (score >= 50) then
-                aSpeed = math.random(-2400, -645)
+                aSpeed = math.random(-4500, -4000)
             elseif (score >= 60) then
-                aSpeed = math.random(-2900, -750)
+                aSpeed = math.random(-5400, -5000)
             elseif (score >= 70) then
-                aSpeed = math.random(-3400, -855)
+                aSpeed = math.random(-6300, -6005)
             elseif (score >= 80) then
-                aSpeed = math.random(-700, -100)
+                aSpeed = math.random(-7200, -7000)
             elseif (score >= 90) then 
-                aSpeed = math.random(-710, -170)
+                aSpeed = math.random(-8100, -8000)
             elseif (score >= 100) then
-                aSpeed = math.random(-720, -190)
+                aSpeed = math.random(-9000, -9000)
 
             else 
                 aSpeed = math.random(-290, -150)
