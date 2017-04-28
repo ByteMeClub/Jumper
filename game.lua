@@ -91,7 +91,7 @@ end
 
 function heroJump(event)
     if (canJump == true ) then
-        heroObject:applyLinearImpulse(0, -0.12, heroObject.x, heroObject.y)
+        heroObject:applyLinearImpulse(0, -0.135, heroObject.x, heroObject.y)
         canJump = false
     end
 end
@@ -110,7 +110,7 @@ function rollObstacles(event)
     local aSpeed = 0
     for i = 1, #obstacle, 1 do
 
-        if obstacle[i].x < (heroObject.x - 50) then
+        if obstacle[i].x < (heroObject.x - 100) then
             score = score + 1
             scoreText.text = score
             if (score > highScore) then
@@ -209,6 +209,8 @@ function scene:create( event )
     print("SCORE = ", score)
 
     --audio.play(2)
+
+    var aNumber = 2
 
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
 
