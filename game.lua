@@ -210,7 +210,7 @@ function scene:create( event )
 
     --audio.play(2)
 
-    var aNumber = 2
+    
 
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
 
