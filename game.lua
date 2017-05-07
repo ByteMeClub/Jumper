@@ -116,6 +116,7 @@ function rollObstacles(event)
             if (score > highScore) then
                 highScore = score
                 highScoreText.text = highScore
+                aScore = highScore
             end
             Count = Count + 1
             obstacle[i].x = 850
@@ -124,21 +125,21 @@ function rollObstacles(event)
                 aSpeed = math.random(-310, -145)
             elseif (score >= 10) then
                 aSpeed = math.random(-900, -845)
-            elseif (score >= 20) then
+            elseif (score >= 15) then
                 aSpeed = math.random(-1840, -1745)
-            elseif (score >= 30) then
+            elseif (score >= 20) then
                 aSpeed = math.random(-2750, -445)
-            elseif (score >= 40) then
+            elseif (score >= 25) then
                 aSpeed = math.random(-3630, -3600)
-            elseif (score >= 50) then
+            elseif (score >= 30) then
                 aSpeed = math.random(-4500, -4000)
-            elseif (score >= 60) then
+            elseif (score >= 35) then
                 aSpeed = math.random(-5400, -5000)
-            elseif (score >= 70) then
+            elseif (score >= 50) then
                 aSpeed = math.random(-6300, -6005)
-            elseif (score >= 80) then
+            elseif (score >= 60) then
                 aSpeed = math.random(-7200, -7000)
-            elseif (score >= 90) then 
+            elseif (score >= 70) then 
                 aSpeed = math.random(-8100, -8000)
             elseif (score >= 100) then
                 aSpeed = math.random(-9000, -9000)

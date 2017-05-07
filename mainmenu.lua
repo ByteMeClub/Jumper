@@ -14,6 +14,21 @@ local scene = composer.newScene()
 --local nextSceneButton
 
 
+local playList = {"track1.mp3", "track2.mp3"}
+
+
+
+local function shuffle(t)
+    local random = math.random
+    local iterations = #t
+    local j
+    
+    j = random(iterations)
+
+    return j
+end
+
+
 
 function nextScene (event)
     composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )
@@ -87,8 +102,10 @@ function scene:show( event )
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        
-        menuTheme = audio.loadStream("Music/menuTheme.mp3")
+
+
+        song = shuffle(playList)
+        menuTheme = audio.loadStream("Music/track2.mp3")
         playMenuTheme = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
       
         --playMenuTheme = audio.play( menuTheme, { channel=1, loops=-1, fadein=0 } )
