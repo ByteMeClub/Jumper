@@ -14,6 +14,8 @@ local scene = composer.newScene()
 --local nextSceneButton
 
 function nextScene (event)
+    
+
     composer.gotoScene( event.target.name , { effect = "fade", time = 300 } )   
     audio.resume(1)
     

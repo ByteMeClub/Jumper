@@ -115,10 +115,10 @@ function rollObstacles(event)
             scoreText.text = score
             if (score > highScore) then
                 highScore = score
+                gameStats.highScore = highScore
                 highScoreText.text = highScore
-                aScore = highScore
+                loadsave.saveTable(gameStats, "stats.json")
             end
-            Count = Count + 1
             obstacle[i].x = 850
         else
             if (score >= 5) then
