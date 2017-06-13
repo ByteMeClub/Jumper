@@ -5,7 +5,7 @@ JUMP3R repository - first game made by the Montgomery Game Dev. Team!
 # Credits
 Art - Kaushik Tare, Brinda Dhawan
 Music - Rahul Nandakumar
-Programming - Prafull Sharma, Edward Wang
+Programming - Prafull Sharma, Edward Wang, Avi Mohan
 Design - Hossein Zolfaghari, Teja Yendapalli
 
 
